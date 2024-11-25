@@ -1,5 +1,6 @@
 package fr.plb.ecom_user.resource;
 
+import fr.plb.ecom_user.configuration.security.SecurityUtils;
 import fr.plb.ecom_user.entity.UserEntity;
 import fr.plb.ecom_user.resource.dto.JWTTokenDTO;
 import fr.plb.ecom_user.resource.dto.LoginDTO;
@@ -24,6 +25,8 @@ import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.Optional;
 import java.util.stream.Collectors;
+
+import static fr.plb.ecom_user.configuration.security.SecurityUtils.JWT_ALGORITHM;
 
 
 @RestController
@@ -69,7 +72,9 @@ public class AuthenticationResource {
     }
 
     public String createToken(Authentication authentication) {
-        String authorities = authentication.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.joining(" "));
+        String authorities = authentication.getAuthorities()
+                .stream().map(GrantedAuthority::getAuthority)
+                .collect(Collectors.joining(" "));
 
         Instant now = Instant.now();
         Instant validity = now.plus(86400, ChronoUnit.SECONDS);

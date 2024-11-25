@@ -2,6 +2,7 @@ package fr.plb.ecom_user.resource.dto;
 
 import fr.plb.ecom_user.entity.UserEntity;
 import fr.plb.ecom_user.vo.UserAddress;
+import fr.plb.ecom_user.vo.UserAddressBuilder;
 import org.jilt.Builder;
 
 import java.util.Set;
@@ -17,7 +18,7 @@ public record RestUser(UUID publicId,
                        UserAddress address) {
 
     public static RestUser from(UserEntity user) {
-        RestUserBuilder restUserBuilder = RestUserBuilder.restUser();
+        fr.plb.ecom_user.resource.dto.RestUserBuilder restUserBuilder = fr.plb.ecom_user.resource.dto.RestUserBuilder.restUser();
 
         if (user.getAddressStreet() != null) {
             UserAddress userAddress = UserAddressBuilder.userAddress()

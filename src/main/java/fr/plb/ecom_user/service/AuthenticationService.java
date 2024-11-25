@@ -18,7 +18,7 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 
-import static org.hibernate.cfg.JdbcSettings.USER;
+import static fr.plb.ecom_user.configuration.security.SecurityUtils.USER;
 
 @Service
 public class AuthenticationService {
