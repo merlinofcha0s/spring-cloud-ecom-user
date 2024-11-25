@@ -1,0 +1,8 @@
+{
+  "datacenter": "ecom-dc",
+  "data_dir": "/consul/data",
+  "node_name": "ecom-node-1",
+  "acl": {
+    "enabled": false
+  }
+}

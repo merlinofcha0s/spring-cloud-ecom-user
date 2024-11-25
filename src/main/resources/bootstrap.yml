@@ -1,0 +1,14 @@
+spring:
+  cloud:
+    consul:
+      config:
+        format: yaml
+        fail-fast: true
+        profile-separator: ','
+      host: localhost
+      port: 8500
+      discovery:
+        instance-id: ${spring.application.name}:${random.value}
+        service-name: ${spring.application.name}
+        enabled: true
+        healthCheckInterval: 15s
