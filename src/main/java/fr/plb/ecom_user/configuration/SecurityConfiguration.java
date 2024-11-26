@@ -28,6 +28,7 @@ public class SecurityConfiguration {
                 authorize.requestMatchers(HttpMethod.POST, "/api/register").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/authenticate").permitAll()
                         .requestMatchers("/actuator/**").permitAll()
+                        .requestMatchers("/services/**").authenticated()
                         .requestMatchers("/api/**").authenticated())
                 .csrf(AbstractHttpConfigurer::disable)
                 .oauth2ResourceServer(
