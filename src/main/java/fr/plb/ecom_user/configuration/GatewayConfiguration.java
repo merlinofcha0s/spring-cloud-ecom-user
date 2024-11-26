@@ -1,9 +1,13 @@
 package fr.plb.ecom_user.configuration;
 
 import org.springframework.cloud.gateway.server.mvc.filter.AfterFilterFunctions;
+import org.springframework.cloud.gateway.server.mvc.filter.CircuitBreakerFilterFunctions;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.servlet.function.RequestPredicates;
 import org.springframework.web.servlet.function.RouterFunction;
+import org.springframework.web.servlet.function.RouterFunctions;
 import org.springframework.web.servlet.function.ServerResponse;
 
 import java.time.Duration;
@@ -36,8 +40,19 @@ public class GatewayConfiguration {
         return route("ecom_order_route")
                 .route(path("/services/ecom-order/**"), http())
                 .filter(lb("ecom-order"))
+                .filter(CircuitBreakerFilterFunctions
+                        .circuitBreaker(config -> config.setId("gateway").setFallbackUri("forward:/fallback")))
                 .before(stripPrefix(2))
                 .after(AfterFilterFunctions.addResponseHeader("X-Powered-by", "PLB"))
                 .build();
+    }
+
+    @Bean
+    public RouterFunction<ServerResponse> fallbackRoute() {
+        return RouterFunctions.route(
+                RequestPredicates.path("/fallback"), request ->
+                        ServerResponse.status(HttpStatus.TOO_MANY_REQUESTS)
+                                .body("Service unavailable, try again later")
+        );
     }
 }

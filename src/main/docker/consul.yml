@@ -9,3 +9,8 @@ services:
     command: consul agent -dev -ui -client 0.0.0.0 -log-level=INFO -config-dir=/consul/config
     volumes:
       - './consul-config:/consul/config'
+    networks:
+      - consultest
+networks:
+  consultest:
+    external: true

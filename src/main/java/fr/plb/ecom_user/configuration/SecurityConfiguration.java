@@ -27,6 +27,7 @@ public class SecurityConfiguration {
         httpSecurity.authorizeHttpRequests(authorize ->
                 authorize.requestMatchers(HttpMethod.POST, "/api/register").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/authenticate").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/fallback").permitAll()
                         .requestMatchers("/actuator/**").permitAll()
                         .requestMatchers("/services/**").authenticated()
                         .requestMatchers("/api/**").authenticated())
