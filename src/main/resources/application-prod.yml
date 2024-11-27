@@ -1,0 +1,8 @@
+spring:
+  devtools:
+    restart:
+      enabled: false
+    livereload:
+      enabled: false
+  liquibase:
+    contexts: prod

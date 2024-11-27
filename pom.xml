@@ -133,7 +133,6 @@
 			<version>8.0</version>
 		</dependency>
 
-
 	</dependencies>
 
 	<dependencyManagement>
@@ -153,6 +152,30 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+
+			<plugin>
+				<groupId>com.google.cloud.tools</groupId>
+				<artifactId>jib-maven-plugin</artifactId>
+				<version>3.4.4</version>
+				<configuration>
+					<from>
+						<image>eclipse-temurin:21-jre</image>
+					</from>
+					<to>
+						<image>ecom-user:${project.version}</image>
+					</to>
+					<container>
+						<ports>
+							<port>8080</port>
+						</ports>
+						<environment>
+							<SPRING_OUTPUT_ANSI_ENABLED>ALWAYS</SPRING_OUTPUT_ANSI_ENABLED>
+						</environment>
+						<creationTime>USE_CURRENT_TIMESTAMP</creationTime>
+						<user>1000</user>
+					</container>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
