@@ -91,6 +91,12 @@ services:
       service: consul
     networks:
      - ecom-network
+  zipkin:
+    extends:
+      file: ./zipkin.yml
+      service: zipkin
+    networks:
+      - ecom-network
 
 networks:
   ecom-network:

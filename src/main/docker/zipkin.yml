@@ -1,0 +1,13 @@
+name: zipkin-ecom
+services:
+  zipkin:
+    image: openzipkin/zipkin:3
+    environment:
+      - ES_HOSTS=http://elasticsearch:9200
+      - ES_INDEX=zipkin-prod
+      - STORAGE_TYPE=elasticsearch
+      - ES_USERNAME=elastic
+      - ES_PASSWORD=codecake
+      - ES_SSL_NO_VERIFY=true
+    ports:
+      - "127.0.0.1:9411:9411"
