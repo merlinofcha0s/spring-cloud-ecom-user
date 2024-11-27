@@ -12,6 +12,8 @@ services :
           echo "Setting kibana_system password";
           until curl -s -X POST -u "elastic:codecake" -H "Content-Type: application/json" http://elasticsearch:9200/_security/user/kibana_system/_password -d "{\"password\":\"codecake\"}" | grep -q "^{}"; do sleep 10; done;
           echo "All done!";
+      networks:
+        - ecom-network
 
     elasticsearch:
       image: docker.elastic.co/elasticsearch/elasticsearch:8.15.1
@@ -34,6 +36,8 @@ services :
         - ELASTIC_PASSWORD=codecake
         - xpack.security.http.ssl.enabled=false
         - xpack.security.enabled=true
+      networks:
+        - ecom-network
 
     kibana:
       image: docker.elastic.co/kibana/kibana:8.15.1
@@ -49,7 +53,8 @@ services :
         - ./elk/kibana:/usr/share/kibana/config
       depends_on:
         - elasticsearch
-
+      networks:
+        - ecom-network
     logstash:
       image: docker.elastic.co/logstash/logstash:8.15.1
       container_name: logstash
@@ -64,3 +69,9 @@ services :
         - "5000:5000"
       depends_on:
         - elasticsearch
+      networks:
+        - ecom-network
+
+networks:
+  ecom-network:
+    external: true
