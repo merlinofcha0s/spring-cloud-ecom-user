@@ -3,7 +3,7 @@ services:
   gateway-user:
     image: ecom-user:0.0.1-SNAPSHOT
     environment:
-      - _JAVA_OPTIONS=-Xmx512m -Xms256m
+        - _JAVA_OPTIONS=-Xmx512m -Xms256m
         - SPRING_PROFILES_ACTIVE=prod
         - SPRING_DATASOURCE_URL=jdbc:postgresql://postgresql:5432/ecommerce?schema=ecom_user
         - SPRING_CLOUD_CONSUL_HOST=consul
@@ -30,10 +30,14 @@ services:
     extends:
       file: ./postgresql.yml
       service: database
+    networks:
+      - ecom-network
   consul:
     extends:
       file: ./consul.yml
       service: consul
+    networks:
+     - ecom-network
 
 networks:
   ecom-network:
